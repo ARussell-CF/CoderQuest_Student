@@ -1,0 +1,67 @@
+﻿.btn-primary {
+    background-color: #FF993B;
+    border-color: #FF993B;
+    box-shadow: 3px 3px 1px grey;
+}
+
+.btn-primary:hover {
+    color: #fff !important;
+    background-color: #ff993b !important;
+    border-color: #000 !important;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important;
+    box-shadow: 3px 3px 1px grey !important;
+}
+
+.btn-primary:active {
+    color: #fff !important;
+    background-color: #ff993b !important;
+    border-color: #000 !important;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important;
+    box-shadow: 3px 3px 1px grey !important;
+}
+
+.btn-primary:focus {
+    color: #fff !important;
+    background-color: #ff993b !important;
+    border-color: #000 !important;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important;
+    box-shadow: 3px 3px 1px grey !important;
+}
+
+.jumbotron {
+    color: #fff;
+    background-color: #ff993b;
+    border-radius: 30px !important;
+    margin-top: 20px;
+    box-shadow: 10px 10px 5px grey;
+}
+
+#indexJumbo {
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
+    font-family: "Times New Roman", Times, serif;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #FF993B;
+    color: white;
+}
+

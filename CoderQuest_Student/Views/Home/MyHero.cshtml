@@ -1,0 +1,285 @@
+﻿@model CoderQuest_Student.Models.Hero
+
+@{
+    ViewBag.Title = "MyHero";
+}
+
+<h2>My Hero</h2>
+
+<div class="container-fluid">
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Strength)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Strength)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Defense)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Defense)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.OriginalHP)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OriginalHP)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CurrentHP)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CurrentHP)
+                </dd>
+
+                <dt>
+                    Equipped Armor
+                </dt>
+
+                <dd>
+                    @if (Model.EquippedArmor == null)
+                    {
+                        <div>No Equipped Armor</div>
+                    }
+                    else
+                    {
+                        @Model.EquippedArmor.Name
+                    }
+                </dd>
+
+                <dt>
+                    Equipped Weapon
+                </dt>
+
+                <dd>
+                    @if (Model.EquippedWeapon == null)
+                    {
+                        <div>No Equipped Weapon</div>
+                    }
+                    else
+                    {
+                        @Model.EquippedWeapon.Name
+                    }
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <h4>Armor Bag</h4>
+                <div class="col-md-6">
+                    @if (Model.ArmorBag.Count != 0)
+                    {
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Defense</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var armor in Model.ArmorBag)
+                                {
+                                    <tr>
+                                        <td>@armor.Name</td>
+                                        <td>@armor.Defense</td>
+                                        <td>
+                                            @using (Html.BeginForm("EquipArmor", "Home", FormMethod.Post))
+                                            {
+                                                @Html.Hidden("name", armor.Name);
+                                                @Html.Hidden("defense", armor.Defense);
+                                                <input type="submit" value="Equip" class="btn btn-default" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No Armors yet</p>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <h4>Weapon Bag</h4>
+                <div class="col-md-6">
+                    @if (Model.WeaponBag.Count != 0)
+                    {
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Strength</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var weapon in Model.WeaponBag)
+                                {
+                                    <tr>
+                                        <td>@weapon.Name</td>
+                                        <td>@weapon.Strength</td>
+                                        <td>
+                                            @using (Html.BeginForm("EquipWeapon", "Home", FormMethod.Post))
+                                            {
+                                                @Html.Hidden("name", weapon.Name);
+                                                @Html.Hidden("strength", weapon.Strength);
+                                                <input type="submit" value="Equip" class="btn btn-default" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No Weapons yet</p>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Fight a Monster", "Fight", null, new { @class = "btn btn-danger btn-lg" })
+        </div>
+        <div class="col-md-4">
+            <!--Uncomment this code once you've created the addArmor method-->
+            <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#addArmor">Add Some Armor</button>
+
+            @*<button class="btn btn-success btn-lg restricted">Add Some Armor</button>*@
+
+        </div>
+        <div class="col-md-4">
+            <!--Uncomment this code once you've created the addWeapon method-->
+            <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#addWeapon">Add A Weapon</button>
+
+            @*<button class="btn btn-info btn-lg restricted">Add A Weapon</button>*@
+
+        </div>
+    </div>
+</div>
+
+<!-- Armor Modal -->
+<div class="modal" id="addArmor">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Creating Armor</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                @using (Html.BeginForm("AddArmor", "Home", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="ArmorName">Name</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line" id="name" name="name" type="text" value="" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="name" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="ArmorDefense">Defense</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Defense must be a number." data-val-required="The Defense field is required." id="defense" name="defense" type="number" value="" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="defense" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Weapon Modal -->
+<div class="modal" id="addWeapon">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Creating Weapon</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                @using (Html.BeginForm("AddWeapon", "Home", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="WeaponName">Name</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line" id="name" name="name" type="text" value="" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="name" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="WeaponStrength">Strength</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Strength must be a number." data-val-required="The Strength field is required." id="strength" name="strength" type="number" value="" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="strength" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>

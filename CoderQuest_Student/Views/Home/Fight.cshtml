@@ -1,0 +1,173 @@
+﻿@model CoderQuest_Student.ViewModels.FightVM
+
+@{
+    ViewBag.Title = "Fight";
+}
+
+<h2>Fight!</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Hero</h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Hero.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Hero.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Hero.Strength)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Hero.Strength)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Hero.Defense)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Hero.Defense)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Hero.OriginalHP)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Hero.OriginalHP)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Hero.CurrentHP)
+                </dt>
+
+                <dd id="heroCurrent">
+                    @Html.DisplayFor(model => model.Hero.CurrentHP)
+                </dd>
+            </dl>
+
+        </div>
+        <div class="col-md-6">
+            <h4>Monster</h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Monster.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Monster.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Monster.Strength)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Monster.Strength)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Monster.Defense)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Monster.Defense)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Monster.OriginalHP)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Monster.OriginalHP)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Monster.CurrentHP)
+                </dt>
+
+                <dd id="monsterCurrent">
+                    @Html.DisplayFor(model => model.Monster.CurrentHP)
+                </dd>
+
+            </dl>
+
+        </div>
+    </div>
+    <hr />
+
+    <section id="controls">
+        <div class="row" id="fightControls">
+            <div class="col-md-4">
+                <div class="btn btn-primary btn-lg" id="fight">Fight!</div>
+            </div>
+            <div class="col-md-4 col-md-offset-2">
+                @using (Html.BeginForm("Run", "Home", FormMethod.Post))
+                {
+                    @Html.Hidden("hp", Model.Hero.CurrentHP);
+                    <input type="submit" value="Run!" class="btn btn-danger btn-lg" />
+                }
+            </div>
+        </div>
+
+        <div class="row" id="victoryControls" style="display:none;">
+            <div class="col-md-4">
+                @using (Html.BeginForm("Victory", "Home", FormMethod.Post))
+                {
+                    @Html.Hidden("hpRemain", Model.Hero.CurrentHP);
+                    <input type="submit" value="Congratulations!" class="btn btn-success btn-lg" />
+                }
+            </div>
+        </div>
+
+        <div class="row" id="defeatControls" style="display:none;">
+            <div class="col-md-4">
+                @using (Html.BeginForm("Defeat", "Home", FormMethod.Post))
+                {
+                    <input type="submit" value="Let's Try That Again!" class="btn btn-danger btn-lg" />
+                }
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+<section id="functionNumbers">
+    @if (Model.Hero.EquippedWeapon != null)
+    {
+        {
+            var heroBaseStr = Model.Hero.Strength;
+            var weaponStr = Model.Hero.EquippedWeapon.Strength;
+            var totalStr = heroBaseStr + weaponStr;
+            <input type="hidden" id="heroStr" value="@totalStr" />
+        }
+    }
+    else
+    {
+        <input type="hidden" id="heroStr" value="@Model.Hero.Strength" />
+    }
+    @if (Model.Hero.EquippedArmor != null)
+    {
+        {
+            var heroBaseDef = Model.Hero.Strength;
+            var armorDef = Model.Hero.EquippedArmor.Defense;
+            var totalDef = heroBaseDef + armorDef;
+            <input type="hidden" id="heroDef" value="@totalDef" />
+        }
+    }
+    else
+    {
+        <input type="hidden" id="heroDef" value="@Model.Hero.Defense" />
+    }
+    <input type="hidden" id="heroHP" value="@Model.Hero.CurrentHP" />
+    <input type="hidden" id="monsterStr" value="@Model.Monster.Strength" />
+    <input type="hidden" id="monsterDef" value="@Model.Monster.Defense" />
+    <input type="hidden" id="monsterHP" value="@Model.Monster.CurrentHP" />
+</section>

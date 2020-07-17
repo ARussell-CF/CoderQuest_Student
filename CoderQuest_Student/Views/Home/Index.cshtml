@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1 class="text-center" id="indexJumbo">Coder Quest</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">Welcome to your introduction to basic C# coding with MVC!</h2>
+            <hr />
+            <p>The button on the left will immediately start the actions, but you will find it to be very simple and not that fun. We are going to expand Hero creation, add more monsters, and let our Hero equip weapons and armor!</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#quickStart">
+                Quick Start!
+            </button>
+        </div>
+        <div class="col-md-4">
+            <!--Uncomment this code once you've built the customHero method-->
+            @*<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#customHero">
+                Build From Scratch
+            </button>*@
+
+            <button type="button" class="btn btn-primary btn-lg restricted">
+                Build From Scratch
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- Quickstart Modal -->
+<div class="modal" id="quickStart">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Let's Start with a Name!</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                @using (Html.BeginForm())
+                {
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="name">Name</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" id="name" name="name" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="name" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Custom Hero Modal -->
+<div class="modal" id="customHero">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">You Get To Set All The Stats</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                @using (Html.BeginForm("CustomHero", "Home", FormMethod.Post))
+                {
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="name">Name</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" id="name" name="name" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="name" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="strength">Strength</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" id="str" name="str" type="number" value="10" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="name" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="defense">Defense</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" id="def" name="def" type="number" value="10" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="name" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="hp">Hit Points</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" id="hp" name="hp" type="number" value="30" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="" dahpta-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
